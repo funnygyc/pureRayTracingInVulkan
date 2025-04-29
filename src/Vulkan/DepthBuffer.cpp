@@ -55,9 +55,9 @@ namespace Vulkan {
 
 		const auto& debugUtils = device.DebugUtils();
 
-		debugUtils.SetObjectName(image_->Handle(), "Depth Buffer Image");
-		debugUtils.SetObjectName(imageMemory_->Handle(), "Depth Buffer Image Memory");
-		debugUtils.SetObjectName(imageView_->Handle(), "Depth Buffer ImageView");
+		// debugUtils.SetObjectName(image_->Handle(), "Depth Buffer Image");
+		// debugUtils.SetObjectName(imageMemory_->Handle(), "Depth Buffer Image Memory");
+		// debugUtils.SetObjectName(imageView_->Handle(), "Depth Buffer ImageView");
 	}
 
 	DepthBuffer::~DepthBuffer()

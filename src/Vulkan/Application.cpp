@@ -136,21 +136,21 @@ void Application::CreateSwapChain()
 		uniformBuffers_.emplace_back(*device_);
 	}
 
-	graphicsPipeline_.reset(new class GraphicsPipeline(*swapChain_, *depthBuffer_, uniformBuffers_, GetScene(), isWireFrame_));
+	// graphicsPipeline_.reset(new class GraphicsPipeline(*swapChain_, *depthBuffer_, uniformBuffers_, GetScene(), isWireFrame_));
 
-	for (const auto& imageView : swapChain_->ImageViews())
-	{
-		swapChainFramebuffers_.emplace_back(*imageView, graphicsPipeline_->RenderPass());
-	}
+	// for (const auto& imageView : swapChain_->ImageViews())
+	// {
+	// 	swapChainFramebuffers_.emplace_back(*imageView, graphicsPipeline_->RenderPass());
+	// }
 
-	commandBuffers_.reset(new CommandBuffers(*commandPool_, static_cast<uint32_t>(swapChainFramebuffers_.size())));
+	commandBuffers_.reset(new CommandBuffers(*commandPool_, static_cast<uint32_t>(swapChain_->ImageViews().size())));
 }
 
 void Application::DeleteSwapChain()
 {
 	commandBuffers_.reset();
 	swapChainFramebuffers_.clear();
-	graphicsPipeline_.reset();
+	// graphicsPipeline_.reset();
 	uniformBuffers_.clear();
 	inFlightFences_.clear();
 	renderFinishedSemaphores_.clear();
@@ -172,7 +172,8 @@ void Application::DrawFrame()
 	uint32_t imageIndex;
 	auto result = vkAcquireNextImageKHR(device_->Handle(), swapChain_->Handle(), noTimeout, imageAvailableSemaphore, nullptr, &imageIndex);
 
-	if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || isWireFrame_ != graphicsPipeline_->IsWireFrame())
+	// if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || isWireFrame_ != graphicsPipeline_->IsWireFrame())
+	if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR)
 	{
 		RecreateSwapChain();
 		return;

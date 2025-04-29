@@ -175,7 +175,7 @@ void RayTracer::Render(VkCommandBuffer commandBuffer, const size_t currentFrame,
 		stats.TotalSamples = totalNumberOfSamples_;
 	}
 
-	userInterface_->Render(commandBuffer, SwapChainFrameBuffer(imageIndex), stats);
+	// userInterface_->Render(commandBuffer, SwapChainFrameBuffer(imageIndex), stats);
 }
 
 void RayTracer::OnKey(int key, int scancode, int action, int mods)

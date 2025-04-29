@@ -40,16 +40,16 @@ UserInterface::UserInterface(
 	const auto& device = swapChain.Device();
 	const auto& window = device.Surface().Instance().Window();
 
-	// Initialise descriptor pool and render pass for ImGui.
-	const std::vector<Vulkan::DescriptorBinding> descriptorBindings =
-	{
-		{0, 1, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 0},
-	};
-	descriptorPool_.reset(new Vulkan::DescriptorPool(device, descriptorBindings, 1));
-	renderPass_.reset(new Vulkan::RenderPass(swapChain, depthBuffer, VK_ATTACHMENT_LOAD_OP_LOAD, VK_ATTACHMENT_LOAD_OP_LOAD));
+	// // Initialise descriptor pool and render pass for ImGui.
+	// const std::vector<Vulkan::DescriptorBinding> descriptorBindings =
+	// {
+	// 	{0, 1, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 0},
+	// };
+	// descriptorPool_.reset(new Vulkan::DescriptorPool(device, descriptorBindings, 1));
+	// renderPass_.reset(new Vulkan::RenderPass(swapChain, depthBuffer, VK_ATTACHMENT_LOAD_OP_LOAD, VK_ATTACHMENT_LOAD_OP_LOAD));
 
-	// Initialise ImGui
-	IMGUI_CHECKVERSION();
+	// // Initialise ImGui
+	// IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 
 	// Initialise ImGui GLFW adapter
@@ -58,25 +58,25 @@ UserInterface::UserInterface(
 		Throw(std::runtime_error("failed to initialise ImGui GLFW adapter"));
 	}
 
-	// Initialise ImGui Vulkan adapter
-	ImGui_ImplVulkan_InitInfo vulkanInit = {};
-	vulkanInit.Instance = device.Surface().Instance().Handle();
-	vulkanInit.PhysicalDevice = device.PhysicalDevice();
-	vulkanInit.Device = device.Handle();
-	vulkanInit.QueueFamily = device.GraphicsFamilyIndex();
-	vulkanInit.Queue = device.GraphicsQueue();
-	vulkanInit.PipelineCache = nullptr;
-	vulkanInit.DescriptorPool = descriptorPool_->Handle();
-	vulkanInit.RenderPass = renderPass_->Handle();
-	vulkanInit.MinImageCount = swapChain.MinImageCount();
-	vulkanInit.ImageCount = static_cast<uint32_t>(swapChain.Images().size());
-	vulkanInit.Allocator = nullptr;
-	vulkanInit.CheckVkResultFn = CheckVulkanResultCallback;
+	// // Initialise ImGui Vulkan adapter
+	// ImGui_ImplVulkan_InitInfo vulkanInit = {};
+	// vulkanInit.Instance = device.Surface().Instance().Handle();
+	// vulkanInit.PhysicalDevice = device.PhysicalDevice();
+	// vulkanInit.Device = device.Handle();
+	// vulkanInit.QueueFamily = device.GraphicsFamilyIndex();
+	// vulkanInit.Queue = device.GraphicsQueue();
+	// vulkanInit.PipelineCache = nullptr;
+	// vulkanInit.DescriptorPool = descriptorPool_->Handle();
+	// vulkanInit.RenderPass = renderPass_->Handle();
+	// vulkanInit.MinImageCount = swapChain.MinImageCount();
+	// vulkanInit.ImageCount = static_cast<uint32_t>(swapChain.Images().size());
+	// vulkanInit.Allocator = nullptr;
+	// vulkanInit.CheckVkResultFn = CheckVulkanResultCallback;
 
-	if (!ImGui_ImplVulkan_Init(&vulkanInit))
-	{
-		Throw(std::runtime_error("failed to initialise ImGui vulkan adapter"));
-	}
+	// if (!ImGui_ImplVulkan_Init(&vulkanInit))
+	// {
+	// 	Throw(std::runtime_error("failed to initialise ImGui vulkan adapter"));
+	// }
 
 	auto& io = ImGui::GetIO();
 
@@ -89,25 +89,25 @@ UserInterface::UserInterface(
 	ImGui::StyleColorsDark();
 	ImGui::GetStyle().ScaleAllSizes(scaleFactor);
 
-	// Upload ImGui fonts (use ImGuiFreeType for better font rendering, see https://github.com/ocornut/imgui/tree/master/misc/freetype).
-	io.Fonts->FontBuilderIO = ImGuiFreeType::GetBuilderForFreeType();
-	if (!io.Fonts->AddFontFromFileTTF("../assets/fonts/Cousine-Regular.ttf", 13 * scaleFactor))
-	{
-		Throw(std::runtime_error("failed to load ImGui font"));
-	}
+	// // Upload ImGui fonts (use ImGuiFreeType for better font rendering, see https://github.com/ocornut/imgui/tree/master/misc/freetype).
+	// io.Fonts->FontBuilderIO = ImGuiFreeType::GetBuilderForFreeType();
+	// if (!io.Fonts->AddFontFromFileTTF("../assets/fonts/Cousine-Regular.ttf", 13 * scaleFactor))
+	// {
+	// 	Throw(std::runtime_error("failed to load ImGui font"));
+	// }
 
-	Vulkan::SingleTimeCommands::Submit(commandPool, [] (VkCommandBuffer commandBuffer)
-	{
-		if (!ImGui_ImplVulkan_CreateFontsTexture())
-		{
-			Throw(std::runtime_error("failed to create ImGui font textures"));
-		}
-	});
+	// Vulkan::SingleTimeCommands::Submit(commandPool, [] (VkCommandBuffer commandBuffer)
+	// {
+	// 	if (!ImGui_ImplVulkan_CreateFontsTexture())
+	// 	{
+	// 		Throw(std::runtime_error("failed to create ImGui font textures"));
+	// 	}
+	// });
 }
 
 UserInterface::~UserInterface()
 {
-	ImGui_ImplVulkan_Shutdown();
+	// ImGui_ImplVulkan_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
 }

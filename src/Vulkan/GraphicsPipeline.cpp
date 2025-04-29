@@ -158,41 +158,41 @@ GraphicsPipeline::GraphicsPipeline(
 		descriptorSets.UpdateDescriptors(descriptorWrites);
 	}
 
-	// Create pipeline layout and render pass.
-	pipelineLayout_.reset(new class PipelineLayout(device, descriptorSetManager_->DescriptorSetLayout()));
+	// // Create pipeline layout and render pass.
+	// pipelineLayout_.reset(new class PipelineLayout(device, descriptorSetManager_->DescriptorSetLayout()));
 	renderPass_.reset(new class RenderPass(swapChain, depthBuffer, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_ATTACHMENT_LOAD_OP_CLEAR));
 
-	// Load shaders.
-	const ShaderModule vertShader(device, "../assets/shaders/Graphics.vert.spv");
-	const ShaderModule fragShader(device, "../assets/shaders/Graphics.frag.spv");
+	// // Load shaders.
+	// const ShaderModule vertShader(device, "../assets/shaders/Graphics.vert.spv");
+	// const ShaderModule fragShader(device, "../assets/shaders/Graphics.frag.spv");
 
-	VkPipelineShaderStageCreateInfo shaderStages[] =
-	{
-		vertShader.CreateShaderStage(VK_SHADER_STAGE_VERTEX_BIT),
-		fragShader.CreateShaderStage(VK_SHADER_STAGE_FRAGMENT_BIT)
-	};
+	// VkPipelineShaderStageCreateInfo shaderStages[] =
+	// {
+	// 	vertShader.CreateShaderStage(VK_SHADER_STAGE_VERTEX_BIT),
+	// 	fragShader.CreateShaderStage(VK_SHADER_STAGE_FRAGMENT_BIT)
+	// };
 
-	// Create graphic pipeline
-	VkGraphicsPipelineCreateInfo pipelineInfo = {};
-	pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
-	pipelineInfo.stageCount = 2;
-	pipelineInfo.pStages = shaderStages;
-	pipelineInfo.pVertexInputState = &vertexInputInfo;
-	pipelineInfo.pInputAssemblyState = &inputAssembly;
-	pipelineInfo.pViewportState = &viewportState;
-	pipelineInfo.pRasterizationState = &rasterizer;
-	pipelineInfo.pMultisampleState = &multisampling;
-	pipelineInfo.pDepthStencilState = &depthStencil;
-	pipelineInfo.pColorBlendState = &colorBlending;
-	pipelineInfo.pDynamicState = nullptr; // Optional
-	pipelineInfo.basePipelineHandle = nullptr; // Optional
-	pipelineInfo.basePipelineIndex = -1; // Optional
-	pipelineInfo.layout = pipelineLayout_->Handle();
-	pipelineInfo.renderPass = renderPass_->Handle();
-	pipelineInfo.subpass = 0;
+	// // Create graphic pipeline
+	// VkGraphicsPipelineCreateInfo pipelineInfo = {};
+	// pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
+	// pipelineInfo.stageCount = 2;
+	// pipelineInfo.pStages = shaderStages;
+	// pipelineInfo.pVertexInputState = &vertexInputInfo;
+	// pipelineInfo.pInputAssemblyState = &inputAssembly;
+	// pipelineInfo.pViewportState = &viewportState;
+	// pipelineInfo.pRasterizationState = &rasterizer;
+	// pipelineInfo.pMultisampleState = &multisampling;
+	// pipelineInfo.pDepthStencilState = &depthStencil;
+	// pipelineInfo.pColorBlendState = &colorBlending;
+	// pipelineInfo.pDynamicState = nullptr; // Optional
+	// pipelineInfo.basePipelineHandle = nullptr; // Optional
+	// pipelineInfo.basePipelineIndex = -1; // Optional
+	// pipelineInfo.layout = pipelineLayout_->Handle();
+	// pipelineInfo.renderPass = renderPass_->Handle();
+	// pipelineInfo.subpass = 0;
 
-	Check(vkCreateGraphicsPipelines(device.Handle(), nullptr, 1, &pipelineInfo, nullptr, &pipeline_),
-		"create graphics pipeline");
+	// Check(vkCreateGraphicsPipelines(device.Handle(), nullptr, 1, &pipelineInfo, nullptr, &pipeline_),
+	// 	"create graphics pipeline");
 }
 
 GraphicsPipeline::~GraphicsPipeline()

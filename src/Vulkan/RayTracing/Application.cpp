@@ -273,10 +273,10 @@ void Application::CreateBottomLevelStructures(VkCommandBuffer commandBuffer)
 	bottomScratchBuffer_.reset(new Buffer(Device(), total.buildScratchSize, VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_STORAGE_BIT_KHR | VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT | VK_BUFFER_USAGE_STORAGE_BUFFER_BIT));
 	bottomScratchBufferMemory_.reset(new DeviceMemory(bottomScratchBuffer_->AllocateMemory(VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT)));
 
-	debugUtils.SetObjectName(bottomBuffer_->Handle(), "BLAS Buffer");
-	debugUtils.SetObjectName(bottomBufferMemory_->Handle(), "BLAS Memory");
-	debugUtils.SetObjectName(bottomScratchBuffer_->Handle(), "BLAS Scratch Buffer");
-	debugUtils.SetObjectName(bottomScratchBufferMemory_->Handle(), "BLAS Scratch Memory");
+	// debugUtils.SetObjectName(bottomBuffer_->Handle(), "BLAS Buffer");
+	// debugUtils.SetObjectName(bottomBufferMemory_->Handle(), "BLAS Memory");
+	// debugUtils.SetObjectName(bottomScratchBuffer_->Handle(), "BLAS Scratch Buffer");
+	// debugUtils.SetObjectName(bottomScratchBufferMemory_->Handle(), "BLAS Scratch Memory");
 
 	// Generate the structures.
 	VkDeviceSize resultOffset = 0;
@@ -289,7 +289,7 @@ void Application::CreateBottomLevelStructures(VkCommandBuffer commandBuffer)
 		resultOffset += bottomAs_[i].BuildSizes().accelerationStructureSize;
 		scratchOffset += bottomAs_[i].BuildSizes().buildScratchSize;
 
-		debugUtils.SetObjectName(bottomAs_[i].Handle(), ("BLAS #" + std::to_string(i)).c_str());
+		// debugUtils.SetObjectName(bottomAs_[i].Handle(), ("BLAS #" + std::to_string(i)).c_str());
 	}
 }
 
@@ -330,17 +330,17 @@ void Application::CreateTopLevelStructures(VkCommandBuffer commandBuffer)
 	topScratchBufferMemory_.reset(new DeviceMemory(topScratchBuffer_->AllocateMemory(VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT)));
 
 	
-	debugUtils.SetObjectName(topBuffer_->Handle(), "TLAS Buffer");
-	debugUtils.SetObjectName(topBufferMemory_->Handle(), "TLAS Memory");
-	debugUtils.SetObjectName(topScratchBuffer_->Handle(), "TLAS Scratch Buffer");
-	debugUtils.SetObjectName(topScratchBufferMemory_->Handle(), "TLAS Scratch Memory");
-	debugUtils.SetObjectName(instancesBuffer_->Handle(), "TLAS Instances Buffer");
-	debugUtils.SetObjectName(instancesBufferMemory_->Handle(), "TLAS Instances Memory");
+	// debugUtils.SetObjectName(topBuffer_->Handle(), "TLAS Buffer");
+	// debugUtils.SetObjectName(topBufferMemory_->Handle(), "TLAS Memory");
+	// debugUtils.SetObjectName(topScratchBuffer_->Handle(), "TLAS Scratch Buffer");
+	// debugUtils.SetObjectName(topScratchBufferMemory_->Handle(), "TLAS Scratch Memory");
+	// debugUtils.SetObjectName(instancesBuffer_->Handle(), "TLAS Instances Buffer");
+	// debugUtils.SetObjectName(instancesBufferMemory_->Handle(), "TLAS Instances Memory");
 
 	// Generate the structures.
 	topAs_[0].Generate(commandBuffer, *topScratchBuffer_, 0, *topBuffer_, 0);
 
-	debugUtils.SetObjectName(topAs_[0].Handle(), "TLAS");
+	// debugUtils.SetObjectName(topAs_[0].Handle(), "TLAS");
 }
 
 void Application::CreateOutputImage()
@@ -359,13 +359,13 @@ void Application::CreateOutputImage()
 
 	const auto& debugUtils = Device().DebugUtils();
 	
-	debugUtils.SetObjectName(accumulationImage_->Handle(), "Accumulation Image");
-	debugUtils.SetObjectName(accumulationImageMemory_->Handle(), "Accumulation Image Memory");
-	debugUtils.SetObjectName(accumulationImageView_->Handle(), "Accumulation ImageView");
+	// debugUtils.SetObjectName(accumulationImage_->Handle(), "Accumulation Image");
+	// debugUtils.SetObjectName(accumulationImageMemory_->Handle(), "Accumulation Image Memory");
+	// debugUtils.SetObjectName(accumulationImageView_->Handle(), "Accumulation ImageView");
 	
-	debugUtils.SetObjectName(outputImage_->Handle(), "Output Image");
-	debugUtils.SetObjectName(outputImageMemory_->Handle(), "Output Image Memory");
-	debugUtils.SetObjectName(outputImageView_->Handle(), "Output ImageView");
+	// debugUtils.SetObjectName(outputImage_->Handle(), "Output Image");
+	// debugUtils.SetObjectName(outputImageMemory_->Handle(), "Output Image Memory");
+	// debugUtils.SetObjectName(outputImageView_->Handle(), "Output ImageView");
 
 }
 

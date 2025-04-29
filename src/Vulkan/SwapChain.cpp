@@ -76,11 +76,11 @@ SwapChain::SwapChain(const class Device& device, const VkPresentModeKHR presentM
 
 	const auto& debugUtils = device.DebugUtils();
 
-	for (size_t i = 0; i != images_.size(); ++i)
-	{
-		debugUtils.SetObjectName(images_[i], ("Swapchain Image #" + std::to_string(i)).c_str());
-		debugUtils.SetObjectName(imageViews_[i]->Handle(), ("Swapchain ImageView #" + std::to_string(i)).c_str());
-	}
+	// for (size_t i = 0; i != images_.size(); ++i)
+	// {
+	// 	debugUtils.SetObjectName(images_[i], ("Swapchain Image #" + std::to_string(i)).c_str());
+	// 	debugUtils.SetObjectName(imageViews_[i]->Handle(), ("Swapchain ImageView #" + std::to_string(i)).c_str());
+	// }
 }
 
 SwapChain::~SwapChain()
