@@ -2,6 +2,7 @@
 #include "Utilities/Exception.hpp"
 #include "Utilities/StbImage.hpp"
 #include <iostream>
+#include <chrono>
 
 namespace Vulkan {
 
@@ -163,10 +164,29 @@ bool Window::IsMinimized() const
 void Window::Run()
 {
 	glfwSetTime(0.0);
+	float totalFrameTime = 0;
+	int frameCounter = 0;
+	std::string framerateString = "Vulkan Window";
+	auto frameTimeStart = std::chrono::high_resolution_clock::now();
 
 	while (!glfwWindowShouldClose(window_))
 	{
 		glfwPollEvents();
+
+		auto frameTimeEnd = std::chrono::high_resolution_clock::now();
+		float renderFrameTime = std::chrono::duration<float, std::chrono::milliseconds::period>(frameTimeEnd - frameTimeStart).count();
+		totalFrameTime += renderFrameTime;
+		frameCounter++;
+		// std::cout << frameCounter << std::endl;
+		frameTimeStart = frameTimeEnd;
+
+		if(frameCounter > 100){
+			float avgFrameTime = totalFrameTime / frameCounter;
+			framerateString = "Average " + std::to_string(1000.f / avgFrameTime ) + " FPS ";
+			totalFrameTime = 0;
+			frameCounter = 0;
+			glfwSetWindowTitle(window_, (char *)framerateString.c_str());
+		}
 
 		if (DrawFrame)
 		{
